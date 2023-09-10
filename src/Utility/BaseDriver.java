@@ -3,6 +3,7 @@ package Utility;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
 
 import java.time.Duration;
 import java.util.logging.Level;
@@ -19,14 +20,19 @@ public class BaseDriver {
 
 
         driver = new ChromeDriver();
+        driver.get("https://openmrs.org/");
+        MyFunction.Wait(1);
         driver.manage().window().maximize();//ekranı maxx yapıyor.
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));//20 sn mühlet: sayfayı yükleme mühleti
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         // WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(20));
     }
-
+@AfterClass
     public static void BekleveKapat() {
-       MyFunction.Wait(5);
+       MyFunction.Wait(1);
         driver.quit();
     }
+
+    public static int RandomNumber(int limit){
+        return  (int)(Math.random()*limit);}
 }
