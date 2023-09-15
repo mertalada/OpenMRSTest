@@ -1,87 +1,107 @@
 import Utility.BaseDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import Utility.MyFunction;
 import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.By;
+import org.openqa.selenium.*;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.io.IOException;
+import java.time.Duration;
 
 import static Utility.BaseDriver.*;
 
-public class OpenMRSTest {
+public class OpenMRSTest extends BaseDriver {
 
-    public OpenMRSTest() {
+    _parametreler elements = new _parametreler();
+    ListParameters listParameters=new ListParameters();
+    //WebDriverWait wait = new WebDriverWait(BaseDriver.driver, Duration.ofSeconds(20));
 
-        PageFactory.initElements(BaseDriver.driver,this);
-    }
+
     @Test
-    public void US3(){
+    public void US3() {
 
-        driver.get("https://openmrs.org/");
-        MyFunction.Wait(2);
+        // Seda'nın yazdığı kısım
+        elements.myClick(elements.demo);
+        elements.myClick(elements.openmrs2);
+        elements.myClick(elements.entertheopenmrs2demo);
+        elements.mySendKeys(elements.username,"admin");
+        elements.mySendKeys(elements.password,"Admin123");
+        elements.myClick(elements.Inpatientward);
+        elements.myClick(elements.login);
+        elements.myClick(elements.logout);
 
-        _parametreler elements=new _parametreler();
+        // US_4 Başlıyooooooo (Musabettin Hazretleri)
 
-        elements.demo.click();
+        elements.mySendKeys(elements.username,"admin");
+        elements.mySendKeys(elements.password,"Admin123");
+        listParameters.myClick(listParameters.locations.get(MyFunction.RandomNumber(6)));
+        elements.myClick(elements.login);
+        elements.myClick(elements.registerPatient);
+        elements.mySendKeys(elements.givenName,"Musabettin");
+        elements.myClick(elements.familyName);
+        elements.mySendKeys(elements.familyName,"TestHazretleriOğulları");
+        elements.myClick(elements.nextButton);
+        elements.myClick(elements.genderBox);
+        Select gender=new Select(elements.genderBox);
+        gender.selectByIndex(1);
+        elements.myClick(elements.nextButton);
+        elements.mySendKeys(elements.birthDay,"1");
+        elements.myClick(elements.birthMonth);
+        Select month=new Select(elements.birthMonth);
+        month.selectByIndex(4);
+        elements.mySendKeys(elements.birthYear,"1995");
+        elements.myClick(elements.nextButton);
+        elements.mySendKeys(elements.adress,"İstanbul");
+        elements.mySendKeys(elements.adress2,"Küçükçekmece");
+        elements.mySendKeys(elements.cityVillage,"Cumhuriyet");
+        elements.mySendKeys(elements.stateProvince,"Marmara");
+        elements.mySendKeys(elements.country,"Türkiye");
+        elements.mySendKeys(elements.postalCode,"34290");
+        elements.myClick(elements.nextButton);
+        elements.mySendKeys(elements.phoneNumber,"+90555555555");
+        elements.myClick(elements.nextButton);
+        Select relationshipType=new Select(elements.relationBox);
+        relationshipType.selectByVisibleText("Parent");
+        elements.mySendKeys(elements.personName,"Abuzer Kömürcü");
+        elements.myClick(elements.nextButton);
+        elements.myClick(elements.confirmButton);
+        elements.verifyContainsText(elements.patientGivenName, elements.givenName.getText());
 
-        new Actions(driver).scrollByAmount(0, 10).build().perform();
+        // US_5 başlıyoo
+        elements.myClick(elements.demo);
+        elements.myClick(elements.openmrs2);
+        elements.myClick(elements.entertheopenmrs2demo);
+        elements.mySendKeys(elements.username,"admin");
+        elements.mySendKeys(elements.password,"Admin123");
+        elements.myClick(elements.Inpatientward);
+        elements.myClick(elements.login);
+        elements.myHover(elements.adminMenu);
+        elements.verifyContainsText(elements.myAccount, elements.myAccount.getText());
+        elements.myClick(elements.myAccount);
+        elements.verifyContainsText(elements.changePassword,elements.changePassword.getText());
+        elements.verifyContainsText(elements.myLanguages,elements.myLanguages.getText());
 
-        elements.openmrs2.click();
 
-        elements.entertheopenmrs2demo.click();
 
-        elements.username.sendKeys("admin");
 
-        elements.password.sendKeys("Admin123");
 
-        elements.Inpatientward.click();
 
-        elements.login.click();
 
-        elements.logout.click();
+
+
+
+
+
 
     }
-    @Test
-    public void TestErdemUS10(){
 
-        driver.get("https://demo.openmrs.org/openmrs/login.htm");
-
-        WebElement userName= driver.findElement(By.xpath("//*[@id='username']"));
-        userName.sendKeys("admin");
-
-        WebElement paswrd= driver.findElement(By.xpath("//*[@id='password']"));
-        paswrd.sendKeys("Admin123");
-
-        WebElement location= driver.findElement(By.cssSelector("#Inpatient\\ Ward"));
-        location.click();
-
-        WebElement logIn= driver.findElement(By.cssSelector("#loginButton"));
-        logIn.click();
-
-        MyFunction.Wait(1);
-
-        WebElement appointmentSchedule= driver.findElement(By.cssSelector("#appointmentschedulingui-homeAppLink-appointmentschedulingui-homeAppLink-extension > i"));
-        appointmentSchedule.click();
-
-        WebElement manageApp= driver.findElement(By.cssSelector("#appointmentschedulingui-manageAppointments-app > i"));
-        manageApp.click();
-
-        WebElement name= driver.findElement(By.cssSelector("#patient-search"));
-        name.sendKeys("admin");
-
-        WebElement patientName= driver.findElement(By.cssSelector("#patient-search-results-table > tbody > tr:nth-child(1) > td:nth-child(2)"));
-        patientName.click();
-
-    }
-
-
-
-    }
+}
 
 
 
