@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.time.Duration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 public class BaseDriver {
     public static WebDriver driver;
     public static WebDriver wait;
@@ -22,11 +23,12 @@ public class BaseDriver {
         driver.manage().window().maximize();//ekranı maxx yapıyor.
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));//20 sn mühlet: sayfayı yükleme mühleti
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+
         // WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     public static void BekleveKapat() {
-       MyFunction.Wait(5);
+        MyFunction.Wait(5);
         driver.quit();
     }
 }

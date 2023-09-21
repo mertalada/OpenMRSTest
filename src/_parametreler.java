@@ -3,10 +3,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class _parametreler  {
+import java.util.List;
+
+public class _parametreler {
 
     public _parametreler() {
-        PageFactory.initElements(BaseDriver.driver,this);
+        PageFactory.initElements(BaseDriver.driver, this);
     }
 
     @FindBy(xpath = "//*[@class='zak-button']")
@@ -33,5 +35,15 @@ public class _parametreler  {
     @FindBy(xpath = "//a[@href='/openmrs/appui/header/logout.action?successUrl=openmrs']")
     public WebElement logout;
 
+    @FindBy(linkText = "Find Patient Record")
+    public WebElement findPatientRecord;
 
+    @FindBy(xpath = "//tbody[@role='alert']/tr")
+    public List<WebElement> showingTotal;
+
+    @FindBy(xpath = "//a[@tabindex='0'][4]")
+    public WebElement showingText;
+
+    @FindBy(css = "[id='patient-search-results-table_info']")
+    public WebElement toplamHasta;
 }
