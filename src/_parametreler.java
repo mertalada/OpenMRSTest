@@ -41,9 +41,25 @@ public class _parametreler {
     @FindBy(xpath = "//tbody[@role='alert']/tr")
     public List<WebElement> showingTotal;
 
-    @FindBy(xpath = "//a[@tabindex='0'][4]")
+    @FindBy(xpath = "//a[@tabindex='0'][1]")
     public WebElement showingText;
 
     @FindBy(css = "[id='patient-search-results-table_info']")
     public WebElement toplamHasta;
+
+
+    @FindBy(css = "[class='form-control']")
+    public WebElement findPatientSearch;
+
+
+    @FindBy(css = "[class='odd']")
+    public WebElement hastaClick;
+
+
+    @FindBy(css = "[class='icon-home small']")
+    public WebElement home;
+
+    @FindBy(css = "[class='dataTables_empty']")
+    public WebElement noMatching;
+
 }

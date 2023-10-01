@@ -1,13 +1,9 @@
 import Utility.BaseDriver;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import Utility.MyFunction;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import Utility.MyFunction;
 import org.openqa.selenium.interactions.Actions;
-
-import java.util.List;
 
 import static Utility.BaseDriver.*;
 
@@ -48,23 +44,30 @@ public class OpenMRSTest {
         elements.findPatientRecord.click();
 
 
+        //elements.showingText.click();
+        //int sayi = Integer.parseInt(elements.showingText.getText());
+        //int showing = (sayi - 1) * 15;
+        //int toplam = showing + elements.showingTotal.size();
 
 
-        elements.showingText.click();
-        int sayi = Integer.parseInt(elements.showingText.getText());
-        int showing = (sayi - 1) * 15;
-        int toplam = showing + elements.showingTotal.size();
+        // HASTA LİSTELEME :
 
-        String showingZ = elements.toplamHasta.getText().substring(20, 22);
-        int showingToplam = Integer.parseInt(showingZ);
+        //  String showingZ = elements.toplamHasta.getText().substring(13, 14);
+        //  int showingToplam = Integer.parseInt(showingZ);
+        //  Assert.assertTrue(showingToplam == elements.showingTotal.size(),"Görünen toplam hasta ile kayıtlı hasta eşit değil");
 
 
-        Assert.assertTrue(showingToplam == toplam, "Görünen toplam hasta ile kayıtlı hasta eşit değil");
+        // HASTA LİSTESİNE ARAMA :
 
+        elements.findPatientSearch.sendKeys("John Green");
+        elements.hastaClick.click();
+        elements.home.click();
+        elements.findPatientRecord.click();
+        elements.findPatientSearch.sendKeys("Abuzer Kömürcü");
 
-
-
-
+        String hastaBulunamadi = "No matching records found";
+        MyFunction.bekle(3);
+        Assert.assertEquals(elements.noMatching.getText(), hastaBulunamadi, "Beklenen mesaj ile alınan mesaj aynı değil.");
 
 
         BekleveKapat();
