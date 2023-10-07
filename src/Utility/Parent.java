@@ -3,17 +3,22 @@ package Utility;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.time.Duration;
+import java.util.List;
 
 public class Parent {
 
     Actions actions=new Actions(BaseDriver.driver);
     WebDriverWait wait = new WebDriverWait(BaseDriver.driver, Duration.ofSeconds(20));
+
+    @FindBy(xpath = "//*[@tabindex='0']")
+    public List<WebElement> locations;
+
     public void myClick(WebElement element) {
 
         wait.until(ExpectedConditions.visibilityOf(element));

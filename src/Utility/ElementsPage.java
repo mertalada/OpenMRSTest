@@ -1,18 +1,12 @@
-import Utility.BaseDriver;
-import Utility.Parent;
-import org.openqa.selenium.JavascriptExecutor;
+package Utility;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
-import java.time.Duration;
+public class ElementsPage extends Parent {
 
-public class _parametreler  extends Parent {
-
-    public _parametreler() {
+    public ElementsPage() {
         PageFactory.initElements(BaseDriver.driver,this);
     }
     @FindBy(xpath = "//*[@class='zak-button']")
@@ -33,8 +27,6 @@ public class _parametreler  extends Parent {
     public WebElement logout;
     @FindBy (xpath = "//*[contains(@id,'register')]/i")
     public WebElement registerPatient;
-
-    // Register A Patient menusundeki elementler
     @FindBy(name = "givenName")
     public WebElement givenName;
     @FindBy(name = "familyName")
