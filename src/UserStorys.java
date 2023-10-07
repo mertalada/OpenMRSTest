@@ -1,6 +1,12 @@
 import Utility.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.util.List;
 
 public class UserStorys extends BaseDriver {
 
@@ -91,7 +97,46 @@ public class UserStorys extends BaseDriver {
     }
     @Test
     public void Patient_List(){
+        WebElement anasayfa = driver.findElement(By.xpath("//i[@class='icon-home small']"));
+        anasayfa.click();
 
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        WebElement findPatient = driver.findElement(By.id("coreapps-activeVisitsHomepageLink-coreapps-activeVisitsHomepageLink-extension"));
+        findPatient.click();
+
+        WebElement findPageControl = driver.findElement(By.xpath("//div[@id='content']/h2"));
+        Assert.assertTrue(findPageControl.getText().equals("Find Patient Record"));
+
+        int i = 0;
+        int ToplamHasta = 0;
+
+        do {
+            js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+
+            WebElement ToplamHastaSayisi = driver.findElement(By.xpath("//div[@id='patient-search-results-table_info']"));
+
+            String[] bosluk = ToplamHastaSayisi.getText().split(" ");
+            ToplamHasta = Integer.parseInt(bosluk[5]);
+
+            List<WebElement> satirSayisi = driver.findElements(By.xpath("//tbody[@role='alert']/tr"));
+
+            for (WebElement e : satirSayisi) {
+                i++;
+            }
+
+            if (ToplamHasta == i) {
+                break;
+            }
+
+            MyFunction.Wait(1);
+            WebElement next = driver.findElement(By.xpath("//a[@id='patient-search-results-table_next']"));
+            next.click();
+        }
+        while (i != ToplamHasta);
+
+
+        Assert.assertTrue(i == ToplamHasta);
     }
     @Test
     public void Combining_Patient_Records(){
